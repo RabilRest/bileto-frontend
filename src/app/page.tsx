@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
 import { useAuthStore } from "@/lib/zustand/useAuthStore";
-import Card from "@/components/ui/Card";
-import Button from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card"
+import { Button } from "@/components/ui/Button"
+
 import Link from "next/link";
 
 export default function Home() {
@@ -19,7 +20,7 @@ export default function Home() {
               Selamat datang, <strong>{user?.name}</strong> ({user?.email})
             </p>
             <div className="mt-4">
-              <Button variant="danger" onClick={() => logout()}>
+              <Button variant="destructive" onClick={() => logout()}>
                 Logout
               </Button>
             </div>
@@ -31,6 +32,9 @@ export default function Home() {
             </Link>
             <Link href="/auth/signup">
               <Button variant="ghost">Daftar</Button>
+            </Link>
+             <Link href="/dashboard">
+              <Button variant="ghost">Dashboard</Button>
             </Link>
           </div>
         )}
