@@ -1,18 +1,28 @@
+// src/app/layout.tsx
 import "./globals.css";
-import React from "react";
+import { ThemeProvider } from "next-themes";
 
 export const metadata = {
-  title: "Bileto.id - Auth",
-  description: "Authentication demo - Bileto.id"
+  title: "Bileto",
+  description: "Event platform",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="id">
-      <body>
-        <div className="min-h-screen flex items-center justify-center p-6 bg-slate-50">
+    <html lang="en" suppressHydrationWarning>
+      <body className="min-h-screen bg-slate-50 antialiased">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
           {children}
-        </div>
+        </ThemeProvider>
       </body>
     </html>
   );

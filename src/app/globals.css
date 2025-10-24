@@ -38,7 +38,7 @@ body {
   --radius: 0.5rem;
 
   /* Sidebar variables */
-  --sidebar: hsl(0 0% 98%);
+  --sidebar: hsl(0, 0%, 100%);
   --sidebar-foreground: hsl(240 5.3% 26.1%);
   --sidebar-primary: hsl(240 5.9% 10%);
   --sidebar-primary-foreground: hsl(0 0% 98%);
@@ -100,11 +100,51 @@ body {
 }
 
 /* 🔧 Base layer styling */
+/* 📱 Global Responsive Typography */
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+  h1 {
+    @apply text-2xl sm:text-3xl md:text-4xl font-bold leading-tight;
   }
-  body {
-    @apply bg-background text-foreground;
+
+  h2 {
+    @apply text-xl sm:text-2xl md:text-3xl font-semibold;
+  }
+
+  h3 {
+    @apply text-lg sm:text-xl md:text-2xl font-semibold;
+  }
+
+  p {
+    @apply text-sm sm:text-base md:text-lg leading-relaxed;
+  }
+
+  /* Default container padding for all pages */
+  main {
+    @apply px-4 sm:px-6 md:px-8;
   }
 }
+
+/* 🌍 Global Responsive Utilities */
+@layer utilities {
+  /* Show only on desktop/tablet */
+  .hide-mobile {
+    @apply hidden md:block;
+  }
+
+  /* Show only on mobile */
+  .hide-desktop {
+    @apply block md:hidden;
+  }
+
+  /* Responsive card/grid defaults */
+  .grid-responsive {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
+  }
+
+  /* Container centering helper */
+  .container-global {
+    @apply max-w-screen-xl mx-auto w-full px-4 sm:px-6 lg:px-8;
+  }
+}
+
+
