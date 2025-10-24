@@ -1,18 +1,17 @@
 "use client";
 import React from "react";
 import { useAuthStore } from "@/lib/zustand/useAuthStore";
-import { Card } from "@/components/ui/Card"
-import { Button } from "@/components/ui/Button"
+import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
 
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
 
 export default function Home() {
   const { user, isAuthenticated, logout } = useAuthStore();
 
   return (
     <div className="w-full max-w-4xl mx-auto">
-      <Navbar/>
+      s{" "}
       <Card>
         <h1 className="text-2xl font-bold mb-4">Bileto.id — Demo</h1>
 
@@ -28,14 +27,14 @@ export default function Home() {
             </div>
           </div>
         ) : (
-          <div className="flex gap-3">
+          <div className="flex gap-3 bg-amber-400">
             <Link href="/auth/signin">
               <Button>Masuk</Button>
             </Link>
             <Link href="/auth/signup">
               <Button variant="ghost">Daftar</Button>
             </Link>
-             <Link href="/dashboard">
+            <Link href="/dashboard">
               <Button variant="ghost">Dashboard</Button>
             </Link>
           </div>

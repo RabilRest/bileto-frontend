@@ -1,25 +1,20 @@
-import { AppSidebar } from '@/components/app-sidebar'
-import { ChartAreaInteractive } from '@/components/chart-area-interactive'
-import { DataTable } from '@/components/data-table'
-import { SectionCards } from '@/components/section-cards'
-import { SiteHeader } from '@/components/site-header'
-import {
-  SidebarInset,
-  SidebarProvider,
-} from '@/components/ui/sidebar'
+import { ChartAreaInteractive } from "@/components/chart-area-interactive";
+import { SectionCards } from "@/components/section-cards";
+import { SiteHeader } from "@/components/site-header";
+import RecentSales from "@/components/RecentSales";
 
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 export default function Page() {
   return (
     <SidebarProvider
       style={
         {
-          "--sidebar-width": "calc(var(--spacing) * 72)",
+          "--sidebar-width": "calc(var(--spacing) * 48)",
           "--header-height": "calc(var(--spacing) * 12)",
         } as React.CSSProperties
       }
     >
-      <AppSidebar variant="inset" />
       <SidebarInset>
         <SiteHeader />
         <div className="flex flex-1 flex-col">
@@ -29,10 +24,13 @@ export default function Page() {
               <div className="px-4 lg:px-6">
                 <ChartAreaInteractive />
               </div>
+              <div className="px-4 lg:px-6">
+                <RecentSales />
+              </div>
             </div>
           </div>
         </div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }
