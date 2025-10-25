@@ -1,84 +1,82 @@
-"use client"
-import Image from "next/image";
-import { useState } from "react";
+"use client";
 
-const Navbar = () => {
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
 
-    const images = [ 
-  "/coway.png",
-  "/coway2.jpg"
-]
-   const [current, setCurrent] = useState(0);
-    const length = images.length;
+const LOCATIONS = ["all", "jakarta", "bandung", "medan", "semarang"] as const;
+type Location = typeof LOCATIONS[number];
 
-    const nextSlide = () => {
-      setCurrent(current === length - 1 ? 0 : current + 1);
-    };
-    const prevSlide = () => {
-      setCurrent(current === 0 ? length - 1 : current - 1);
-    };  
-    
-  return <div className="flex flex-col justify-between">
-    <div className ="flex justify-between">
-    <div className="font-extrabold text-2xl  dark:text-background text-blue-600">Billeto-Id</div>
-    <div className="flex gap-4"> 
-        <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Login</button>
-        <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Register</button>
-    </div>
-  </div>;
-  <div className="flex mt-0 justify-center min-h-screen bg-gray-100">
-  <div className="absolute">
-    <input
-      type="text"
-      placeholder="Search..."
-      className="w-100 rounded-full border border-gray-300 bg-white py-2 pl-4 pr-10 text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-    />
-    <button
-      className="absolute right-2 top-5 -translate-y-1/2 text-gray-500 hover:text-blue-500"
-    >
-      🔍
-    </button>
+export default function Navbar() {
+  const router = useRouter();
+  const [q, setQ] = useState("");
+  const [location, setLocation] = useState<Location>("all");
 
-  </div>
-  <div className="mt-20">
- <div className= "relative flex w-screen h-120 mb-10 overflow-hidden " >
-      {images.map((img, index) => (
-        <div 
-        key={index}
-        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out
-          ${index === current ? 'opacity-100' : 'opacity-0'}
-        `}
-        >
-          <button className="absolute top-[50%] left-8 text-3xl text-white z-10" onClick={prevSlide}> &#10094; </button>
-            <div className="absolute inset-0 pointer-events-none 
-    [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] 
-    [-webkit-mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]" >
+  function onSubmit(e: FormEvent) {
+    e.preventDefault();
+    const params = new URLSearchParams();
+    if (q.trim()) params.set("q", q.trim());
+    if (location !== "all") params.set("location", location);
+    router.push(`/events${params.toString() ? `?${params.toString()}` : ""}`);
+  }
 
-          <Image
-            src={img}
-            alt="Vercel Logo"
-            width={1400}
-            height={1000}
-            className="h-full w-screen md:object-cover object-contain "
-            priority
-          />
+  return (
+    <header className="sticky  top-0 z-0 bg-white border-b border-gray-200 w-full">
+      <nav className="w-full px-4 py-3 flex  gap-4">
+        {/* Left: Logo */}
+        <Link href="/" className="shrink-0">
+          <span className="text-2xl font-extrabold tracking-tight text-[#1E63F6]">
+            Bileto<span className="text-[#1E63F6]">.id</span>
+          </span>
+        </Link>
+
+        {/* Middle: Search + Location */}
+        <form onSubmit={onSubmit} className="flex flex-1 items-center gap-3">
+          <div className="flex-1">
+            <input
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              placeholder="Search events…"
+              className="w-full rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#1E63F6]/20"
+            />
+          </div>
+
+          <select
+            value={location}
+            onChange={(e) => setLocation(e.target.value as Location)}
+            className="w-48 rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#1E63F6]/20"
+          >
+            {LOCATIONS.map((loc) => (
+              <option key={loc} value={loc}>
+                {loc === "all" ? "All locations" : loc[0].toUpperCase() + loc.slice(1)}
+              </option>
+            ))}
+          </select>
+
+          <button
+            type="submit"
+            className="rounded-xl bg-[#1E63F6] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:opacity-90"
+          >
+            Search
+          </button>
+        </form>
+
+        {/* Right: Auth */}
+        <div className="ml-2 flex items-center gap-2">
+          <Link
+            href="/login"
+            className="rounded-xl border border-[#1E63F6] px-4 py-2 text-sm font-medium text-[#1E63F6] hover:bg-[#1E63F6]/5"
+          >
+            Login
+          </Link>
+          <Link
+            href="/register"
+            className="rounded-xl bg-[#1E63F6] px-4 py-2 text-sm font-semibold text-white hover:opacity-90"
+          >
+            Register
+          </Link>
         </div>
-
-           <button className="absolute top-[50%] right-8 text-3xl text-white z-10" onClick={nextSlide}> &#10095; </button>
-        </div>
-        
-      ))}
-  
-    
-
-      
-     
-      </div>
-      </div>
-  </div>
-</div>
-
- 
-};
-
-export default Navbar;
+      </nav>
+    </header>
+  );
+}

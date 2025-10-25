@@ -6,14 +6,17 @@ import { Button } from "@/components/ui/Button"
 
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import Landingpage from "@/components/Landingpage";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const { user, isAuthenticated, logout } = useAuthStore();
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
-      <Navbar/>
-      <Card>
+    <div className="w-full">
+      
+      <Landingpage/>
+      {/* <Card>
         <h1 className="text-2xl font-bold mb-4">Bileto.id — Demo</h1>
 
         {isAuthenticated ? (
@@ -40,7 +43,9 @@ export default function Home() {
             </Link>
           </div>
         )}
-      </Card>
-    </div>
+      </Card> */}
+      
+      </div>
+   
   );
 }
