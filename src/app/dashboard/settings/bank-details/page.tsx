@@ -41,7 +41,7 @@ export default function BankDetailsPage() {
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select a bank" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-background">
                   <SelectItem value="bca">BCA</SelectItem>
                   <SelectItem value="bni">BNI</SelectItem>
                   <SelectItem value="bri">BRI</SelectItem>
@@ -82,7 +82,10 @@ export default function BankDetailsPage() {
 
             {/* Save Button */}
             <div>
-              <Button type="submit" className="rounded-md px-8">
+              <Button
+                type="submit"
+                className="rounded-md px-8 bg-blue-500 hover:bg-blue-700"
+              >
                 Save
               </Button>
             </div>

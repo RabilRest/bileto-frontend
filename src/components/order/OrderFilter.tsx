@@ -49,7 +49,7 @@ export function OrderFilter({
             Columns
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align="end" className="bg-background">
           <DropdownMenuItem>Event</DropdownMenuItem>
           <DropdownMenuItem>Email</DropdownMenuItem>
           <DropdownMenuItem>Payment Method</DropdownMenuItem>

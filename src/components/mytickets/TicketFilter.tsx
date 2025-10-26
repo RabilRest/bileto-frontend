@@ -49,7 +49,7 @@ export function TicketFilter({
             Columns
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align="end" className="bg-background">
           <DropdownMenuLabel>Visible Columns</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>Title</DropdownMenuItem>
