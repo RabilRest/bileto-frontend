@@ -50,7 +50,7 @@ const data = {
       icon: IconConfetti,
       items: [
         { title: "My Events", url: "/dashboard/events/" },
-        { title: "Create Event", url: "/dashboard/events/create" },
+        { title: "Create Event", url: "/dashboard/events/create-event" },
       ],
     },
     {
@@ -59,7 +59,7 @@ const data = {
       icon: IconTicket,
       items: [
         { title: "My Tickets", url: "/dashboard/tickets" },
-        { title: "Create Ticket", url: "/dashboard/tickets/create" },
+        { title: "Create Ticket", url: "/dashboard/tickets/create-ticket" },
       ],
     },
     {
@@ -68,7 +68,7 @@ const data = {
       icon: IconPercentage,
       items: [
         { title: "My Vouchers", url: "/dashboard/vouchers" },
-        { title: "Create Voucher", url: "/dashboard/vouchers/create" },
+        { title: "Create Voucher", url: "/dashboard/vouchers/create-voucher" },
       ],
     },
     {
@@ -102,12 +102,16 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
       {/* Header */}
       <SidebarHeader className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-2">
-          <span className="text-lg font-bold text-blue-500- dark:text-gray-200">
-            Bileto<span className="text-blue-500">.Id</span>
-          </span>
+          <Link
+            href="/dashboard"
+            className="flex items-center gap-1 hover:opacity-80 transition"
+          >
+            <span className="text-lg font-bold text-blue-500 dark:text-gray-200">
+              Bileto<span className="text-blue-500">.Id</span>
+            </span>
+          </Link>
           <ThemeToggle />
         </div>
-
         {/* Pakai komponen reusable */}
       </SidebarHeader>
 

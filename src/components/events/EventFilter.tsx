@@ -50,7 +50,7 @@ export function EventFilter({
             Columns
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align="end" className="bg-background">
           <DropdownMenuItem>Thumbnail</DropdownMenuItem>
           <DropdownMenuItem>Title</DropdownMenuItem>
           <DropdownMenuItem>Status</DropdownMenuItem>

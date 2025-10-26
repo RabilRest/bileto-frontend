@@ -30,7 +30,7 @@ export default function TicketFormFields() {
           <SelectTrigger id="event" className="w-full">
             <SelectValue placeholder="Select event" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="bg-background">
             <SelectItem value="event1">Event 1</SelectItem>
             <SelectItem value="event2">Event 2</SelectItem>
           </SelectContent>

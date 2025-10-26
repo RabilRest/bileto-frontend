@@ -55,7 +55,7 @@ export function EventDetails() {
             <SelectTrigger id="category" className="w-full">
               <SelectValue placeholder="Select event category" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-background">
               <SelectItem value="music">Music</SelectItem>
               <SelectItem value="conference">Conference</SelectItem>
               <SelectItem value="sports">Sports</SelectItem>
