@@ -14,18 +14,25 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import Link from "next/link";
+import { useCartStore } from "@/lib/card-store";
 
 /** ---------- Mock data (replace with real fetch) ---------- */
-type TicketType = { id: string; name: string; desc?: string; price: number; stock?: number };
+type TicketType = {
+  id: string;
+  name: string;
+  desc?: string;
+  price: number;
+  stock?: number;
+};
 type Voucher = { id: string; code: string; label: string; discount: number }; // discount in IDR
 type EventDetail = {
   id: string;
   title: string;
   image: string;
   location: string;
-  date: string;   // ex: "Dec 02, 2025"
-  time: string;   // ex: "19:00 WIB"
-  organizer: {name:string ; slug:string}
+  date: string; // ex: "Dec 02, 2025"
+  time: string; // ex: "19:00 WIB"
+  organizer: { name: string; slug: string };
   description: string;
   tickets: TicketType[];
   vouchers: Voucher[];
@@ -40,17 +47,45 @@ const DB: Record<string, EventDetail> = {
     location: "Jakarta",
     date: "Dec 2, 2025",
     time: "19:00 WIB",
-    organizer: {name: "Raisa Entertainment", slug: "raisa-entertainment"},
+    organizer: { name: "Raisa Entertainment", slug: "raisa-entertainment" },
     description:
       "Raisa Showcase is an intimate concert experience featuring acoustic sets, special guests, and limited-edition merchandise. Doors open at 18:00 WIB. Venue: JCC Senayan.",
     tickets: [
-      { id: "t1", name: "CAT 1 (FRONT ROW)", desc: "Best view near stage", price: 2_000_000, stock: 50 },
-      { id: "t2", name: "CAT 2", desc: "Great view", price: 1_500_000, stock: 120 },
-      { id: "t3", name: "General Admission", desc: "Standing", price: 500_000, stock: 300 },
+      {
+        id: "t1",
+        name: "CAT 1 (FRONT ROW)",
+        desc: "Best view near stage",
+        price: 2_000_000,
+        stock: 50,
+      },
+      {
+        id: "t2",
+        name: "CAT 2",
+        desc: "Great view",
+        price: 1_500_000,
+        stock: 120,
+      },
+      {
+        id: "t3",
+        name: "General Admission",
+        desc: "Standing",
+        price: 500_000,
+        stock: 300,
+      },
     ],
     vouchers: [
-      { id: "v1", code: "EARLYBIRD", label: "Early Bird - Rp 50.000 OFF", discount: 50_000 },
-      { id: "v2", code: "STUDENT", label: "Student - Rp 25.000 OFF", discount: 25_000 },
+      {
+        id: "v1",
+        code: "EARLYBIRD",
+        label: "Early Bird - Rp 50.000 OFF",
+        discount: 50_000,
+      },
+      {
+        id: "v2",
+        code: "STUDENT",
+        label: "Student - Rp 25.000 OFF",
+        discount: 25_000,
+      },
     ],
   },
   "2": {
@@ -60,32 +95,61 @@ const DB: Record<string, EventDetail> = {
     location: "Semarang",
     date: "Feb 4, 2026",
     time: "10:00 WIB",
-    organizer: {name: "Kreasi Studio", slug: "kreasi-studio"},
+    organizer: { name: "Kreasi Studio", slug: "kreasi-studio" },
     description:
       "A one-day art pop-up with local artists, prints, and workshops. Venue: Kota Lama.",
     tickets: [
       { id: "t1", name: "Workshop Pass", price: 150_000, stock: 40 },
       { id: "t2", name: "Exhibition Only", price: 75_000, stock: 200 },
     ],
-    vouchers: [{ id: "v3", code: "FAMILY", label: "Family - Rp 10.000 OFF", discount: 10_000 }],
+    vouchers: [
+      {
+        id: "v3",
+        code: "FAMILY",
+        label: "Family - Rp 10.000 OFF",
+        discount: 10_000,
+      },
+    ],
   },
-   "3": {
+  "3": {
     id: "3",
     title: "Jakarta Night Run 2025",
     image: "/event4.webp",
     location: "Jakarta",
     date: "Nov 29, 2025",
     time: "21:00 WIB",
-    organizer: {name :"Jakarta Sport League", slug: "jakarta-sport-league"  },
+    organizer: { name: "Jakarta Sport League", slug: "jakarta-sport-league" },
     description:
       "Experience the thrill of the city at night with Jakarta Night Run! A 10K marathon under city lights, complete with live DJ performances, free hydration stations, and finisher medals. Meeting point: GBK Stadium.",
     tickets: [
-      { id: "t1", name: "10K Race", desc: "Includes race pack & medal", price: 350_000, stock: 250 },
-      { id: "t2", name: "5K Fun Run", desc: "For casual runners", price: 200_000, stock: 300 },
+      {
+        id: "t1",
+        name: "10K Race",
+        desc: "Includes race pack & medal",
+        price: 350_000,
+        stock: 250,
+      },
+      {
+        id: "t2",
+        name: "5K Fun Run",
+        desc: "For casual runners",
+        price: 200_000,
+        stock: 300,
+      },
     ],
     vouchers: [
-      { id: "v1", code: "RUNBUDDY", label: "Bring a Friend - Rp 20.000 OFF", discount: 20_000 },
-      { id: "v2", code: "STUDENTRUN", label: "Student - Rp 15.000 OFF", discount: 15_000 },
+      {
+        id: "v1",
+        code: "RUNBUDDY",
+        label: "Bring a Friend - Rp 20.000 OFF",
+        discount: 20_000,
+      },
+      {
+        id: "v2",
+        code: "STUDENTRUN",
+        label: "Student - Rp 15.000 OFF",
+        discount: 15_000,
+      },
     ],
   },
 
@@ -96,17 +160,45 @@ const DB: Record<string, EventDetail> = {
     location: "Denpasar",
     date: "Mar 16, 2026",
     time: "17:00 WIB",
-    organizer: {name: "Bali Experience Group", slug: "bali-experience-group"},
+    organizer: { name: "Bali Experience Group", slug: "bali-experience-group" },
     description:
       "A two-day blend of gourmet cuisine and smooth jazz at the heart of Bali. Enjoy live music from international artists while tasting signature dishes from top local chefs. Venue: Beachwalk Mall Outdoor Stage.",
     tickets: [
-      { id: "t1", name: "General Pass (Day 1)", desc: "Access to all food booths & live shows", price: 250_000, stock: 400 },
-      { id: "t2", name: "General Pass (Day 2)", desc: "Access to all food booths & live shows", price: 250_000, stock: 400 },
-      { id: "t3", name: "2-Day VIP Pass", desc: "Includes reserved seating & free drink", price: 600_000, stock: 100 },
+      {
+        id: "t1",
+        name: "General Pass (Day 1)",
+        desc: "Access to all food booths & live shows",
+        price: 250_000,
+        stock: 400,
+      },
+      {
+        id: "t2",
+        name: "General Pass (Day 2)",
+        desc: "Access to all food booths & live shows",
+        price: 250_000,
+        stock: 400,
+      },
+      {
+        id: "t3",
+        name: "2-Day VIP Pass",
+        desc: "Includes reserved seating & free drink",
+        price: 600_000,
+        stock: 100,
+      },
     ],
     vouchers: [
-      { id: "v1", code: "BALI20", label: "20% OFF for Locals", discount: 50_000 },
-      { id: "v2", code: "EARLYFOODIE", label: "Early Bird - Rp 25.000 OFF", discount: 25_000 },
+      {
+        id: "v1",
+        code: "BALI20",
+        label: "20% OFF for Locals",
+        discount: 50_000,
+      },
+      {
+        id: "v2",
+        code: "EARLYFOODIE",
+        label: "Early Bird - Rp 25.000 OFF",
+        discount: 25_000,
+      },
     ],
   },
 
@@ -117,17 +209,45 @@ const DB: Record<string, EventDetail> = {
     location: "Bandung",
     date: "Apr 22, 2026",
     time: "09:00 WIB",
-    organizer: {name:"TechConnect Indonesia", slug:"techconnect-indonesia"},
+    organizer: { name: "TechConnect Indonesia", slug: "techconnect-indonesia" },
     description:
       "Join Indonesia’s largest startup ecosystem event. Network with investors, attend keynote sessions from founders, and join startup pitch battles. Venue: Trans Convention Center, Bandung.",
     tickets: [
-      { id: "t1", name: "General Admission", desc: "Access to talks & networking zone", price: 300_000, stock: 500 },
-      { id: "t2", name: "VIP Pass", desc: "Includes priority seating & lunch", price: 700_000, stock: 100 },
-      { id: "t3", name: "Startup Booth", desc: "Includes 2 entry passes & booth space", price: 1_500_000, stock: 20 },
+      {
+        id: "t1",
+        name: "General Admission",
+        desc: "Access to talks & networking zone",
+        price: 300_000,
+        stock: 500,
+      },
+      {
+        id: "t2",
+        name: "VIP Pass",
+        desc: "Includes priority seating & lunch",
+        price: 700_000,
+        stock: 100,
+      },
+      {
+        id: "t3",
+        name: "Startup Booth",
+        desc: "Includes 2 entry passes & booth space",
+        price: 1_500_000,
+        stock: 20,
+      },
     ],
     vouchers: [
-      { id: "v1", code: "EARLYPITCH", label: "Early Bird - Rp 50.000 OFF", discount: 50_000 },
-      { id: "v2", code: "STUDENTBIZ", label: "Student - Rp 30.000 OFF", discount: 30_000 },
+      {
+        id: "v1",
+        code: "EARLYPITCH",
+        label: "Early Bird - Rp 50.000 OFF",
+        discount: 50_000,
+      },
+      {
+        id: "v2",
+        code: "STUDENTBIZ",
+        label: "Student - Rp 30.000 OFF",
+        discount: 30_000,
+      },
     ],
   },
 
@@ -138,21 +258,48 @@ const DB: Record<string, EventDetail> = {
     location: "Surabaya",
     date: "May 5, 2026",
     time: "18:00 WIB",
-    organizer: {name:"Cupid Events Asia", slug:"cupid-events-asia"},
+    organizer: { name: "Cupid Events Asia", slug: "cupid-events-asia" },
     description:
       "Meet, mingle, and make connections! A fun evening event for singles featuring live acoustic music, icebreaker games, and relationship workshops. Venue: Grand City Mall Ballroom, Surabaya.",
     tickets: [
-      { id: "t1", name: "Single Entry", desc: "Includes welcome drink & gift bag", price: 250_000, stock: 200 },
-      { id: "t2", name: "Couple Entry", desc: "Perfect for friends or new couples", price: 400_000, stock: 150 },
-      { id: "t3", name: "VIP Lounge", desc: "Access to exclusive lounge & photo area", price: 600_000, stock: 80 },
+      {
+        id: "t1",
+        name: "Single Entry",
+        desc: "Includes welcome drink & gift bag",
+        price: 250_000,
+        stock: 200,
+      },
+      {
+        id: "t2",
+        name: "Couple Entry",
+        desc: "Perfect for friends or new couples",
+        price: 400_000,
+        stock: 150,
+      },
+      {
+        id: "t3",
+        name: "VIP Lounge",
+        desc: "Access to exclusive lounge & photo area",
+        price: 600_000,
+        stock: 80,
+      },
     ],
     vouchers: [
-      { id: "v1", code: "LOVE2026", label: "Valentine Offer - Rp 20.000 OFF", discount: 20_000 },
-      { id: "v2", code: "EARLYHEART", label: "Early Bird - Rp 15.000 OFF", discount: 15_000 },
+      {
+        id: "v1",
+        code: "LOVE2026",
+        label: "Valentine Offer - Rp 20.000 OFF",
+        discount: 20_000,
+      },
+      {
+        id: "v2",
+        code: "EARLYHEART",
+        label: "Early Bird - Rp 15.000 OFF",
+        discount: 15_000,
+      },
     ],
   },
 };
-
 
 function formatIDR(n: number) {
   return new Intl.NumberFormat("id-ID", {
@@ -161,6 +308,7 @@ function formatIDR(n: number) {
     maximumFractionDigits: 0,
   }).format(n);
 }
+
 
 /** ---------- Page Component ---------- */
 export default function EventDetailsPage() {
@@ -193,7 +341,10 @@ export default function EventDetailsPage() {
   const total = Math.max(0, subtotal - discount);
 
   const inc = (id: string) =>
-    setQuantities((q) => ({ ...q, [id]: Math.min((q[id] || 0) + 1, getStock(id)) }));
+    setQuantities((q) => ({
+      ...q,
+      [id]: Math.min((q[id] || 0) + 1, getStock(id)),
+    }));
   const dec = (id: string) =>
     setQuantities((q) => ({ ...q, [id]: Math.max((q[id] || 0) - 1, 0) }));
 
@@ -202,11 +353,28 @@ export default function EventDetailsPage() {
     return t?.stock ?? 9999;
   }
 
-  function handleCheckout() {
-    if (cartItems.length === 0) return alert("Choose at least one ticket.");
-    // In real app, persist cart to state/store and route to checkout page
-    router.push(`/checkout?event=${data.id}`);
-  }
+  function snapshotCart() {
+  return data.tickets
+    .map((t) => ({
+      ticketId: t.id,
+      name: t.name,
+      price: t.price,
+      qty: quantities[t.id] || 0,
+    }))
+    .filter((x) => x.qty > 0);
+}
+
+function handleCheckout() {
+  const items = snapshotCart();
+  if (items.length === 0) return alert("Choose at least one ticket.");
+  // Save to global cart store
+  useCartStore.getState().setCart({
+    eventId: data.id,
+    items,
+    voucher: voucher ? { id: voucher.id, code: voucher.code, discount: voucher.discount } : null,
+  });
+  router.push(`/checkout?event=${data.id}`); // middleware will guard this
+}
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-8">
@@ -355,22 +523,19 @@ export default function EventDetailsPage() {
                 {data.time}
               </li>
             </ul>
-            
 
-
-<div className="mt-4 flex items-center gap-2 text-gray-700">
-  <User className="h-4 w-4 text-gray-500" />
-  <span className="text-sm">
-    Organizer:{" "}
-    <Link
-      href={`/organizers/${data.organizer.slug}`}
-      className="font-medium text-blue-600 hover:underline"
-    >
-      {data.organizer.name}
-    </Link>
-  </span>
-</div>
-
+            <div className="mt-4 flex items-center gap-2 text-gray-700">
+              <User className="h-4 w-4 text-gray-500" />
+              <span className="text-sm">
+                Organizer:{" "}
+                <Link
+                  href={`/organizers/${data.organizer.slug}`}
+                  className="font-medium text-blue-600 hover:underline"
+                >
+                  {data.organizer.name}
+                </Link>
+              </span>
+            </div>
           </div>
 
           {/* Checkout box */}
@@ -388,7 +553,10 @@ export default function EventDetailsPage() {
             ) : (
               <div className="space-y-2">
                 {cartItems.map((t) => (
-                  <div key={t.id} className="flex items-center justify-between text-sm">
+                  <div
+                    key={t.id}
+                    className="flex items-center justify-between text-sm"
+                  >
                     <span>
                       {t.name} × {t.qty}
                     </span>

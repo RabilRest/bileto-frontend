@@ -2,6 +2,8 @@ import Navbar from "@/components/Navbar";
 import "./globals.css";
 import React from "react";
 import Footer from "@/components/Footer";
+import Providers from "./providers";
+
 
 export const metadata = {
   title: "Bileto.id - Auth",
@@ -14,7 +16,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <div className="w-full ml-0">
           <Navbar/>
+          <Providers> 
           {children}
+          </Providers>
+         
           <Footer/>
         </div>
       </body>
