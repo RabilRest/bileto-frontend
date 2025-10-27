@@ -2,6 +2,7 @@
 import React from "react";
 import ForgotPasswordForm from "@/components/forms/ForgotPassword";
 import AuthTransitionWrapper from "@/components/layouts/AuthTransitionWrapper";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function ForgotPasswordPage() {
   return (
@@ -26,6 +27,7 @@ export default function ForgotPasswordPage() {
               <span className="text-2xl font-bold text-white">
                 Bileto<span className="text-blue-500">.id</span>
               </span>
+              <ThemeToggle />
             </div>
 
             {/* Title */}
@@ -34,10 +36,7 @@ export default function ForgotPasswordPage() {
             </h2>
             <p className="text-center text-gray-400 text-sm">
               Don’t have an account?{" "}
-              <a
-                href="/auth/signup"
-                className="text-blue-400 hover:underline"
-              >
+              <a href="/auth/signup" className="text-blue-400 hover:underline">
                 Sign up
               </a>
             </p>

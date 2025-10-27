@@ -1,0 +1,65 @@
+"use client";
+
+import React from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import { orders } from "@/app/dashboard/orders/data/orders";
+import { PaymentTable } from "@/components/payment/PaymentTable";
+import { PaymentFilter } from "@/components/payment/PaymentFilter";
+import { PaymentPagination } from "@/components/payment/PaymentPagination";
+
+export default function PaymentPage() {
+  const [search, setSearch] = React.useState("");
+  const [page, setPage] = React.useState(1);
+  const [statusFilter, setStatusFilter] = React.useState("All");
+
+  const rowsPerPage = 4;
+
+  const filteredData = orders.filter((order) => {
+    const matchSearch =
+      order.event.toLowerCase().includes(search.toLowerCase()) ||
+      order.email.toLowerCase().includes(search.toLowerCase());
+    const matchStatus =
+      statusFilter === "All" ? true : order.status === statusFilter;
+    return matchSearch && matchStatus;
+  });
+
+  const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+  const paginatedData = filteredData.slice(
+    (page - 1) * rowsPerPage,
+    page * rowsPerPage
+  );
+
+  const handleNext = () => page < totalPages && setPage((p) => p + 1);
+  const handlePrevious = () => page > 1 && setPage((p) => p - 1);
+
+  return (
+    <div className="space-y-6 p-6">
+      <Card className="bg-card border-border shadow-sm">
+        <CardHeader className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <CardTitle className="text-xl font-semibold">
+            Manual Payment
+          </CardTitle>
+          <PaymentFilter
+            search={search}
+            setSearch={setSearch}
+            statusFilter={statusFilter}
+            setStatusFilter={setStatusFilter}
+            setPage={setPage}
+          />
+        </CardHeader>
+
+        <CardContent>
+          <PaymentTable data={paginatedData} />
+          <PaymentPagination
+            page={page}
+            totalPages={totalPages}
+            handleNext={handleNext}
+            handlePrevious={handlePrevious}
+            showing={paginatedData.length}
+            total={filteredData.length}
+          />
+        </CardContent>
+      </Card>
+    </div>
+  );
+}

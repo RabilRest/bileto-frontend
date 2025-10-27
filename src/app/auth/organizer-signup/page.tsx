@@ -2,6 +2,7 @@
 import React from "react";
 import OrganizerSignupForm from "@/components/forms/OrganizerSignup";
 import AuthTransitionWrapper from "@/components/layouts/AuthTransitionWrapper";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function OrganizerSignupPage() {
   return (
@@ -25,9 +26,12 @@ export default function OrganizerSignupPage() {
               <span className="text-2xl font-bold text-white">
                 Bileto<span className="text-blue-500">.id</span>
               </span>
+              <ThemeToggle />
             </div>
 
-            <h2 className="text-2xl font-semibold mb-2">Organizer Registration</h2>
+            <h2 className="text-2xl font-semibold mb-2">
+              Organizer Registration
+            </h2>
 
             <OrganizerSignupForm />
           </div>

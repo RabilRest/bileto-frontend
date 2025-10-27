@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import { useAuthStore } from "@/lib/zustand/useAuthStore";
-import { Card } from "@/components/ui/Card"
-import { Button } from "@/components/ui/Button"
+import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
 
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
@@ -31,14 +31,14 @@ export default function Home() {
             </div>
           </div>
         ) : (
-          <div className="flex gap-3">
+          <div className="flex gap-3 bg-amber-400">
             <Link href="/auth/signin">
               <Button>Masuk</Button>
             </Link>
             <Link href="/auth/signup">
               <Button variant="ghost">Daftar</Button>
             </Link>
-             <Link href="/dashboard">
+            <Link href="/dashboard">
               <Button variant="ghost">Dashboard</Button>
             </Link>
           </div>

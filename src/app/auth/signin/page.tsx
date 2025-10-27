@@ -4,6 +4,8 @@ import SigninForm from "@/components/forms/SigninForm";
 import AuthTransitionWrapper from "@/components/layouts/AuthTransitionWrapper";
 import Link from "next/link";
 import { Github, MessageSquare } from "lucide-react";
+import { ThemeProvider } from "next-themes";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const SigninPage: React.FC = (): JSX.Element => {
   return (
@@ -27,6 +29,7 @@ const SigninPage: React.FC = (): JSX.Element => {
               <span className="text-2xl font-bold text-white">
                 Bileto<span className="text-blue-500">.id</span>
               </span>
+              <ThemeToggle />
             </div>
 
             {/* Title & description */}
