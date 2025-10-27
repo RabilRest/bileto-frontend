@@ -1,6 +1,9 @@
 // src/app/layout.tsx
+import Navbar from "@/components/Navbar";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
+import Footer from "@/components/Footer";
+import Providers from "./providers";
 
 export const metadata = {
   title: "Bileto",
@@ -21,7 +24,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <Providers>
+            <Navbar />
+            {children}
+            <Footer />
+          </Providers>
         </ThemeProvider>
       </body>
     </html>
